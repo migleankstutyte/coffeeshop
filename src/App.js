@@ -111,7 +111,6 @@ class App extends React.Component {
     })
   }
 
-
   addedCoffee(item, index) {
     return (
       <div className="coffee__item" key={index}>
@@ -157,22 +156,22 @@ class App extends React.Component {
             <button className="button button--add" onClick={this.showForm}>+</button>
           </div>
           <form className={this.state.showForm ? 'form__container:active' : 'form__container'} onSubmit={this.handleSubmit} >
-            <label for="title">
+            <label htmlFor="title">
               <input type="text" id='title' className={`form-control ${this.state.titleError ? 'is-invalid' : ''}`} name="title" placeholder="Title" onChange={this.handleChange} value={this.state.title} />
               <span>Title</span>
             </label>
             <div className='error'>{this.state.titleError}</div>
-            <label for="capacity">
+            <label htmlFor="capacity">
               <input type="number" id='capacity' className={`form-control ${this.state.capacityError ? 'is-invalid' : ''}`} name="capacity" placeholder="Capacity (ml)" onChange={this.handleChange} value={this.state.capacity} />
               <span>Capacity</span>
             </label>
             <div className='error'>{this.state.capacityError}</div>
-            <label for="price">
+            <label htmlFor="price">
               <input type="number" id='price' className={`form-control ${this.state.priceError ? 'is-invalid' : ''}`} name="price" placeholder="Price (Eur)" onChange={this.handleChange} value={this.state.price} />
               <span>Price</span>
             </label>
             <div className='error'>{this.state.priceError}</div>
-            <label for="files">
+            <label htmlFor="files">
               <input type="file" id="files" onChange={this.onImageChange} key={this.state.inputKey} />
             </label>
             <div className="form__buttons">
