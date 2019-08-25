@@ -1,0 +1,207 @@
+.container {
+  margin: 50px 30px;
+
+  &__title {
+    text-align: center;
+    text-transform: uppercase;
+    color: #e78b12;
+    letter-spacing: 3px;
+    font-size: 40px;
+    margin-bottom: 50px;
+  }
+
+  .form {
+    width: 300px;
+    margin-left: 20px;
+    margin-bottom: 40px;
+
+    &__title {
+      display: flex;
+      margin-bottom: 10px;
+
+      .heading {
+        margin: 0;
+      }
+    }
+    &__container {
+      display: none;
+    }
+
+    &__container:active {
+      display: block;
+    }
+
+    &__buttons {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    label {
+      position: relative;
+      display: block;
+      border: 1px solid grey;
+      border-radius: 5px;
+      margin-bottom: 10px;
+
+      input {
+        box-sizing: border-box;
+        display: block;
+        border: none;
+        padding: 15px;
+        font-size: 15px;
+        outline: none;
+        transition: all 0.2s ease-in-out;
+        border-radius: 5px;
+        width: 100%;
+
+        &::placeholder {
+          transition: all 0.5s ease-in-out;
+          color: #999;
+        }
+
+        &:focus,
+        &.populated {
+          padding-top: 15px;
+
+          &::placeholder {
+            color: transparent;
+          }
+
+          & + span {
+            opacity: 1;
+            top: 15px;
+          }
+        }
+      }
+
+      span {
+        color: #e78b12;
+        position: absolute;
+        opacity: 0;
+        transition: all 0.2s ease-in-out;
+        left: 200px;
+      }
+    }
+
+    .error {
+      color: red;
+      margin-bottom: 10px;
+    }
+    .button {
+      color: #fff;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+      border: none;
+      transition: all 0.4s ease 0s;
+      font-size: 15px;
+      outline: none;
+      cursor: pointer;
+
+      &:disabled {
+        background: #aaaaaa;
+
+        &:hover {
+          background: #aaaaaa;
+          cursor: not-allowed;
+        }
+      }
+
+      &:hover {
+        background: #434343;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+        box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
+        transition: all 0.4s ease 0s;
+      }
+      &--add {
+        background: white;
+        color: black;
+        border: 1px solid grey;
+        padding: 0px 6px 2px 6px;
+        font-size: 20px;
+        margin-left: 20px;
+        &:hover {
+          color: white;
+        }
+      }
+      &--submit {
+        background: #e78b12;
+      }
+      &--reset {
+        background: #aaaaaa;
+      }
+    }
+  }
+
+  .coffee {
+    float: left;
+    position: relative;
+    width: 100%;
+    font-weight: bold;
+
+    &__item {
+      float: left;
+      position: relative;
+      width: 24%;
+      margin-bottom: 30px;
+      box-shadow: 1px 1px 5px 1px #aaaaaa;
+      opacity: 0.8;
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      button {
+        position: absolute;
+        float: right;
+        right: 0;
+        border: 0;
+        background: bottom;
+        color: #e78b12;
+        cursor: pointer;
+        outline: none;
+        opacity: 0;
+      }
+
+      &:hover {
+        opacity: 1;
+        cursor: pointer;
+
+        button {
+          opacity: 0.6;
+        }
+      }
+      img {
+        width: 100%;
+        height: 200px;
+      }
+    }
+
+    &__line {
+      color: black;
+      width: 70%;
+    }
+
+    &__title {
+      font-size: 25px;
+      text-align: center;
+    }
+
+    &__variants {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+      font-size: 15px;
+    }
+
+    &--title {
+      margin-top: 25px;
+      color: rgb(231, 139, 18);
+      margin-bottom: 0;
+    }
+  }
+}
