@@ -1,24 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as coffeeItemAction from './actions/coffeeItemAction';
-import './App.scss'
+import './App.scss';
+import getInitialData from './db.js'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // coffee: [{
-      //   title: '',
-      //   capacity: '',
-      //   price: '',
-      //   image: ''
-      // }],
       coffee: [],
       showForm: false,
       titleError: '',
-      capacityError: '',
-      priceError: '',
-      inputKey: Date.now() // for file input delete
+      inputKey: Date.now() // to delete file input 
     }
   }
 
@@ -32,52 +25,12 @@ class App extends React.Component {
   // handle input change and validate
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value }, () => {
-      const { title, capacity, price } = this.state;
+      const { title } = this.state;
       this.setState({
         titleError: !title ? 'Title can not be empty' : null,
-      }, () => {
-        this.setState({
-          ...this.state,
-          capacityError: !capacity ? 'You should add a capacity' : null,
-        }, () => {
-          this.setState({
-            ...this.state,
-            priceError: !price ? 'You should add a price' : null,
-          });
-        });
       })
     });
   };
-
-  // handleTitleChange = event => {
-  //   const obj = { title: event.target.value };
-  //   this.setState(({
-  //     coffee: [
-  //       Object.assign({}, obj)
-  //     ]
-  //   }))
-  // };
-
-  // handleCapacityChange = event => {
-  //   const obj = { capacity: event.target.value };
-  //   this.setState(({
-  //     coffee: [
-  //       ...this.state.coffee,
-  //       Object.assign({}, obj)
-  //     ]
-  //   }))
-  // };
-
-  // handlePriceChange = event => {
-  //   const obj = { price: event.target.value };
-  //   this.setState(({
-  //     coffee: [
-  //       ...this.state.coffee,
-  //       Object.assign({}, obj)
-  //     ]
-  //   }))
-  // };
-
 
   // submit form
   handleSubmit = (e) => {
@@ -145,6 +98,15 @@ class App extends React.Component {
     }
   }
 
+  sendDataToLocalStorage = () => {
+    localStorage.setItem('localStorageData', JSON.stringify(getInitialData()));
+  }
+
+  componentDidMount() {
+    this.sendDataToLocalStorage();
+    this.props.loadDataFromLocalStorage()
+  }
+
   render() {
     return (
       <div className="container">
@@ -153,7 +115,7 @@ class App extends React.Component {
         <div className="form">
           <div className="form__title">
             <h3 className="heading">Add New Coffee</h3>
-            <button className="button button--add" onClick={this.showForm}>+</button>
+            <button className="button button--add" onClick={this.showForm}>{!this.state.showForm ? '+' : '-'}</button>
           </div>
           <form className={this.state.showForm ? 'form__container:active' : 'form__container'} onSubmit={this.handleSubmit} >
             <label htmlFor="title">
@@ -162,15 +124,13 @@ class App extends React.Component {
             </label>
             <div className='error'>{this.state.titleError}</div>
             <label htmlFor="capacity">
-              <input type="number" id='capacity' className={`form-control ${this.state.capacityError ? 'is-invalid' : ''}`} name="capacity" placeholder="Capacity (ml)" onChange={this.handleChange} value={this.state.capacity} />
+              <input type="number" id='capacity' name="capacity" placeholder="Capacity (ml)" onChange={this.handleChange} value={this.state.capacity} />
               <span>Capacity</span>
             </label>
-            <div className='error'>{this.state.capacityError}</div>
             <label htmlFor="price">
-              <input type="number" id='price' className={`form-control ${this.state.priceError ? 'is-invalid' : ''}`} name="price" placeholder="Price (Eur)" onChange={this.handleChange} value={this.state.price} />
+              <input type="number" id='price' name="price" placeholder="Price (Eur)" onChange={this.handleChange} value={this.state.price} />
               <span>Price</span>
             </label>
-            <div className='error'>{this.state.priceError}</div>
             <label htmlFor="files">
               <input type="file" id="files" onChange={this.onImageChange} key={this.state.inputKey} />
             </label>
@@ -198,13 +158,13 @@ class App extends React.Component {
             </div>
           );
         })}
-        <div className="coffee">{this.props.allCoffeeItems.map((item, index) => this.addedCoffee(item, index))}</div>
+        <div className="coffee">{this.props.allCoffeeItems && this.props.allCoffeeItems.map((item, index) => this.addedCoffee(item, index))}</div>
       </div>
     )
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     allCoffeeItems: state.allCoffeeItems
   }
@@ -213,7 +173,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     createCoffeeItem: coffeeItem => dispatch(coffeeItemAction.createNewCoffeeItem(coffeeItem)),
-    deleteCoffeeItem: index => dispatch(coffeeItemAction.deleteCoffeeItem(index))
+    deleteCoffeeItem: index => dispatch(coffeeItemAction.deleteCoffeeItem(index)),
+    loadDataFromLocalStorage: () => dispatch(coffeeItemAction.loadDataFromLocalStorage())
   }
 };
 

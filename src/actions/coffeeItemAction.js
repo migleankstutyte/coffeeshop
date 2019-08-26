@@ -13,3 +13,10 @@ export const deleteCoffeeItem = (id) => {
         id: id
     }
 }
+
+export const loadDataFromLocalStorage = () => {
+    return {
+        type: actionTypes.FETCH_COFFEE,
+        allCoffeeItems: localStorage.getItem('localStorageData')
+    }
+}
