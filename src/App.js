@@ -111,7 +111,6 @@ class App extends React.Component {
     return (
       <div className="container">
         <h1 className="container__title">Coffee price list billboard</h1>
-        <div id="container"></div>
         <div className="form">
           <div className="form__title">
             <h3 className="heading">Add New Coffee</h3>
